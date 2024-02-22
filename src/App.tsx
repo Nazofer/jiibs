@@ -11,7 +11,7 @@ function App() {
           element={
             <div className='flex h-full'>
               <Sidebar />
-              <div className='h-full w-full pt-[3.75rem] px-[1.875rem]'>
+              <div className='h-full w-full pt-[3.75rem] px-[1.875rem] pb-[1.875rem]'>
                 Home
               </div>
             </div>
@@ -22,12 +22,24 @@ function App() {
           element={
             <div className='flex h-full'>
               <Sidebar />
-              <div className='h-full w-full pt-[3.75rem] px-[1.875rem]'>
+              <div className='h-full w-full pt-[3.75rem] px-[1.875rem] pb-[1.875rem]'>
                 <Building />
               </div>
             </div>
           }
         />
+        <Route
+          path='*'
+          element={
+            <div className='flex h-full'>
+              <Sidebar />
+              <div className='h-full w-full pt-[3.75rem] px-[1.875rem] pb-[1.875rem]'>
+                Not Found
+              </div>
+            </div>
+          }
+        />{' '}
+        {/* Add the Not Found route */}
       </Routes>
     </Router>
   );

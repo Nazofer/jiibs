@@ -11,7 +11,7 @@
   }
 
   #root {
-    @apply h-[100vh];
+    @apply min-h-[100vh];
   }
 
   :root {

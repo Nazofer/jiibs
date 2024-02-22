@@ -15,7 +15,7 @@ const MenuButton: React.FC<MenuButtonProps> = ({ children, icon, page }) => {
       type='button'
       className={({ isActive }) =>
         twMerge(
-          'w-full py-2 px-4 rounded-md text-[#999B9F] flex gap-2',
+          'w-full py-2 px-4 rounded-md text-[#999B9F] flex gap-2 hover:text-black transition-all duration-200 ease-in-out',
           isActive && 'text-black bg-[#F3F4F6]'
         )
       }
