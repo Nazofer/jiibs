@@ -3,54 +3,48 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Building from './pages/building';
 import Units from './pages/units';
 
+interface Page {
+  page: string;
+  children: React.ReactNode;
+}
+
+const pages: Page[] = [
+  {
+    page: '/',
+    children: <div>Home</div>,
+  },
+  {
+    page: '/building',
+    children: <Building />,
+  },
+  {
+    page: '/units',
+    children: <Units />,
+  },
+  {
+    page: '*',
+    children: <div>404</div>,
+  },
+];
+
 function App() {
   return (
     <Router>
       <Routes>
-        <Route
-          path='/'
-          element={
-            <div className='flex h-full'>
-              <Sidebar />
-              <div className='h-full w-full pt-[3.75rem] px-[1.875rem] pb-[1.875rem]'>
-                Home
+        {pages.map((page, index) => (
+          <Route
+            key={index}
+            path={page.page}
+            element={
+              <div className='flex h-full'>
+                <Sidebar />
+                <div className='h-full w-full pt-[3.75rem] px-[1.875rem] pb-[1.875rem] bg-lightGray overflow-y-scroll'>
+                  {page.children}
+                </div>
               </div>
-            </div>
-          }
-        />
-        <Route
-          path='/building'
-          element={
-            <div className='flex h-full'>
-              <Sidebar />
-              <div className='h-full w-full pt-[3.75rem] px-[1.875rem] pb-[1.875rem]'>
-                <Building />
-              </div>
-            </div>
-          }
-        />
-        <Route
-          path='/units'
-          element={
-            <div className='flex h-full'>
-              <Sidebar />
-              <div className='h-full w-full pt-[3.75rem] px-[1.875rem] pb-[1.875rem]'>
-                <Units />
-              </div>
-            </div>
-          }
-        />
-        <Route
-          path='*'
-          element={
-            <div className='flex h-full'>
-              <Sidebar />
-              <div className='h-full w-full pt-[3.75rem] px-[1.875rem] pb-[1.875rem]'>
-                Not Found
-              </div>
-            </div>
-          }
-        />
+            }
+          />
+        ))}
       </Routes>
     </Router>
   );

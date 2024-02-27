@@ -10,8 +10,12 @@
     @apply text-textColor;
   }
 
+  body {
+    @apply overflow-hidden
+  }
+
   #root {
-    @apply min-h-[100vh];
+    @apply h-[100vh];
   }
 
   :root {

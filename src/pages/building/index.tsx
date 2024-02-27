@@ -74,9 +74,9 @@ const Building: React.FC = () => {
         <NavigateButton />
       </div>
       <div className='flex gap-6'>
-        <div className='w-full'>
-          <Card className='mb-5'>
-            <Form {...form}>
+        <Form {...form}>
+          <div className='w-full'>
+            <Card className='mb-5'>
               <FormField
                 control={form.control}
                 name='name'
@@ -173,48 +173,46 @@ const Building: React.FC = () => {
                   </FormItem>
                 )}
               />
-            </Form>
-          </Card>
-          <Card className='mb-5'>
-            <h3 className='paragraph-2 mb-3'>Media</h3>
-            <div className='flex gap-5 flex-wrap'>
-              <Card className='w-44 h-44 p-[10px]'>
-                <img src={BuildingImage} alt='Building' />
-              </Card>
-              <Card className='w-44 h-44 p-[10px]'>
-                <img src={BuildingImage} alt='Building' />
-              </Card>
-              <Card className='w-44 h-44 p-[10px] border-dashed'>
-                <div className='flex flex-col gap-3 items-center justify-center h-full'>
-                  <p className='paragraph-2 text-muted-foreground cursor-pointer'>
-                    Add
-                  </p>
-                  <p className='paragraph-2 text-muted-foreground cursor-pointer'>
-                    Add from URL
-                  </p>
-                </div>
-              </Card>
-            </div>
-          </Card>
-          {!switchedView && (
-            <div>
-              <Card className='rounded-b-none'>
-                <h3 className='paragraph-2'>Amenities</h3>
-              </Card>
-              <Card className='rounded-t-none border-t-0'>
-                <div className='flex gap-4 mb-3'>
-                  <Card className='w-[9.75rem] h-[9.75rem] p-[10px] border-dashed rounded-none shrink-0'>
-                    <div className='flex flex-col gap-3 items-center justify-center h-full'>
-                      <p className='paragraph-2 text-muted-foreground cursor-pointer'>
-                        Add
-                      </p>
-                      <p className='paragraph-2 text-muted-foreground cursor-pointer'>
-                        Add from URL
-                      </p>
-                    </div>
-                  </Card>
-                  <div className='w-full'>
-                    <Form {...form}>
+            </Card>
+            <Card className='mb-5'>
+              <h3 className='paragraph-2 mb-3'>Media</h3>
+              <div className='flex gap-5 flex-wrap'>
+                <Card className='w-44 h-44 p-[10px]'>
+                  <img src={BuildingImage} alt='Building' />
+                </Card>
+                <Card className='w-44 h-44 p-[10px]'>
+                  <img src={BuildingImage} alt='Building' />
+                </Card>
+                <Card className='w-44 h-44 p-[10px] border-dashed'>
+                  <div className='flex flex-col gap-3 items-center justify-center h-full'>
+                    <p className='paragraph-2 text-muted-foreground cursor-pointer'>
+                      Add
+                    </p>
+                    <p className='paragraph-2 text-muted-foreground cursor-pointer'>
+                      Add from URL
+                    </p>
+                  </div>
+                </Card>
+              </div>
+            </Card>
+            {!switchedView && (
+              <div>
+                <Card className='rounded-b-none'>
+                  <h3 className='paragraph-2'>Amenities</h3>
+                </Card>
+                <Card className='rounded-t-none border-t-0'>
+                  <div className='flex gap-4 mb-3'>
+                    <Card className='w-[9.75rem] h-[9.75rem] p-[10px] border-dashed rounded-none shrink-0'>
+                      <div className='flex flex-col gap-3 items-center justify-center h-full'>
+                        <p className='paragraph-2 text-muted-foreground cursor-pointer'>
+                          Add
+                        </p>
+                        <p className='paragraph-2 text-muted-foreground cursor-pointer'>
+                          Add from URL
+                        </p>
+                      </div>
+                    </Card>
+                    <div className='w-full'>
                       <FormField
                         control={form.control}
                         name='title'
@@ -242,25 +240,23 @@ const Building: React.FC = () => {
                           </FormItem>
                         )}
                       />
-                    </Form>
+                    </div>
                   </div>
-                </div>
-                <div className='flex flex-col items-start gap-4'>
-                  <Button>Choose Media</Button>
-                  <Button variant='ghost'>
-                    <span className='mr-3'>
-                      <RiAddLine className='size-5' />
-                    </span>
-                    ADD ITEM
-                  </Button>
-                </div>
-              </Card>
-            </div>
-          )}
-        </div>
-        <div className='flex flex-col gap-5 max-w-[25rem] w-full'>
-          <Card>
-            <Form {...form}>
+                  <div className='flex flex-col items-start gap-4'>
+                    <Button>Choose Media</Button>
+                    <Button variant='ghost'>
+                      <span className='mr-3'>
+                        <RiAddLine className='size-5' />
+                      </span>
+                      ADD ITEM
+                    </Button>
+                  </div>
+                </Card>
+              </div>
+            )}
+          </div>
+          <div className='flex flex-col gap-5 max-w-[25rem] w-full'>
+            <Card>
               <FormItem>
                 <FormLabel>Status</FormLabel>
                 <FormControl>
@@ -270,44 +266,42 @@ const Building: React.FC = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        <SelectItem value='active'>Apple</SelectItem>
-                        <SelectItem value='inactive'>Banana</SelectItem>
-                        <SelectItem value='pending'>Blueberry</SelectItem>
+                        <SelectItem value='active'>Active</SelectItem>
+                        <SelectItem value='inactive'>Inactive</SelectItem>
+                        <SelectItem value='pending'>Pending</SelectItem>
                       </SelectGroup>
                     </SelectContent>
                   </Select>
                 </FormControl>
               </FormItem>
-            </Form>
-          </Card>
-          {!switchedView ? (
-            <div>
-              <Card className='rounded-b-none flex justify-between'>
-                <h3 className='paragraph-2'>Amenities</h3>
-                <a href='#' className='paragraph-2 underline'>
-                  view all
-                </a>
-              </Card>
-              <Card className='rounded-t-none border-t-0'>
-                <div className='flex flex-col gap-4'>
-                  {amenities.map((amenity, index) => (
-                    <div key={index} className='flex items-center gap-1.5'>
-                      <Checkbox id={`item-${index}`} />
-                      <label
-                        htmlFor={`item-${index}`}
-                        className='paragraph-2 text-muted-foreground cursor-pointer'
-                      >
-                        {amenity.name}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </Card>
-            </div>
-          ) : (
-            <>
-              <Card>
-                <Form {...form}>
+            </Card>
+            {!switchedView ? (
+              <div>
+                <Card className='rounded-b-none flex justify-between'>
+                  <h3 className='paragraph-2'>Amenities</h3>
+                  <a href='#' className='paragraph-2 underline'>
+                    view all
+                  </a>
+                </Card>
+                <Card className='rounded-t-none border-t-0'>
+                  <div className='flex flex-col gap-4'>
+                    {amenities.map((amenity, index) => (
+                      <div key={index} className='flex items-center gap-1.5'>
+                        <Checkbox id={`item-${index}`} />
+                        <label
+                          htmlFor={`item-${index}`}
+                          className='paragraph-2 text-muted-foreground cursor-pointer'
+                        >
+                          {amenity.name}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </Card>
+              </div>
+            ) : (
+              <>
+                <Card>
                   <FormField
                     control={form.control}
                     name='deals'
@@ -320,40 +314,40 @@ const Building: React.FC = () => {
                       </FormItem>
                     )}
                   />
-                </Form>
-              </Card>
+                </Card>
 
-              <div>
-                <Card className='rounded-b-none'>
-                  <h3 className='paragraph-2'>Occupancy</h3>
-                </Card>
-                <Card className='rounded-t-none border-t-0'>
-                  <Calendar className='rounded-md border w-min mb-4' />
-                  <div className='flex items-center gap-1.5'>
-                    <Checkbox id='immediate' />
-                    <label
-                      htmlFor='immediate'
-                      className='paragraph-2 text-muted-foreground cursor-pointer'
-                    >
-                      Immediate
-                    </label>
-                  </div>
-                </Card>
-              </div>
-            </>
-          )}
-          <div>
-            <Card className='rounded-b-none'>
-              <h3 className='paragraph-2'>Thumbnail</h3>
-            </Card>
-            <Card className='rounded-t-none border-t-0'>
-              <img src={BuildingImage2} alt='Building image' />
-              <p className='paragraph-2 text-muted-foreground mt-3'>
-                Click the image to edit or update
-              </p>
-            </Card>
+                <div>
+                  <Card className='rounded-b-none'>
+                    <h3 className='paragraph-2'>Occupancy</h3>
+                  </Card>
+                  <Card className='rounded-t-none border-t-0'>
+                    <Calendar className='rounded-md border w-min mb-4' />
+                    <div className='flex items-center gap-1.5'>
+                      <Checkbox id='immediate' />
+                      <label
+                        htmlFor='immediate'
+                        className='paragraph-2 text-muted-foreground cursor-pointer'
+                      >
+                        Immediate
+                      </label>
+                    </div>
+                  </Card>
+                </div>
+              </>
+            )}
+            <div>
+              <Card className='rounded-b-none'>
+                <h3 className='paragraph-2'>Thumbnail</h3>
+              </Card>
+              <Card className='rounded-t-none border-t-0'>
+                <img src={BuildingImage2} alt='Building image' />
+                <p className='paragraph-2 text-muted-foreground mt-3'>
+                  Click the image to edit or update
+                </p>
+              </Card>
+            </div>
           </div>
-        </div>
+        </Form>
       </div>
     </div>
   );

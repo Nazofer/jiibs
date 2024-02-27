@@ -6,9 +6,15 @@ interface MenuButtonProps {
   icon: React.ReactNode;
   children: React.ReactNode;
   page: string;
+  variant?: 'default' | 'icon';
 }
 
-const MenuButton: React.FC<MenuButtonProps> = ({ children, icon, page }) => {
+const MenuButton: React.FC<MenuButtonProps> = ({
+  children,
+  icon,
+  page,
+  variant,
+}) => {
   return (
     <NavLink
       to={page}
@@ -21,7 +27,7 @@ const MenuButton: React.FC<MenuButtonProps> = ({ children, icon, page }) => {
       }
     >
       <span>{icon}</span>
-      {children}
+      {variant === 'default' && <span>{children}</span>}
     </NavLink>
   );
 };
