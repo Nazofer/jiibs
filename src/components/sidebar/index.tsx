@@ -8,7 +8,7 @@ import ProfileIcon from '@/assets/icons/profile.svg?react';
 import Calendar from '@/assets/icons/calendar.svg?react';
 import Help from '@/assets/icons/circle-question.svg?react';
 import Profile from '../profile';
-import { Separator } from '../separator';
+import { Separator } from '../ui/separator';
 
 interface MenuButtons {
   page: string;
