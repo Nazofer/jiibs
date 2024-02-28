@@ -10,6 +10,7 @@ import Help from '@/assets/icons/circle-question.svg?react';
 import Profile from '../profile';
 import { Separator } from '../ui/separator';
 import { GoSidebarCollapse } from 'react-icons/go';
+import { GoSidebarExpand } from 'react-icons/go';
 import { twMerge } from 'tailwind-merge';
 
 interface MenuButtons {
@@ -66,18 +67,30 @@ const Sidebar: React.FC = () => {
   return (
     <aside
       className={twMerge(
-        'pt-[60px] px-[15px] pb-[20px] w-full',
+        'pt-[60px] px-[15px] pb-[20px] w-full transition-all duration-300 ease-in-out',
         isCollapsed ? 'max-w-[80px]' : 'max-w-[17.4375rem]'
       )}
     >
-      <div className='flex justify-between items-center mb-[1.875rem]'>
+      <div
+        className={twMerge(
+          'flex items-center mb-[1.875rem]',
+          isCollapsed ? 'justify-center' : 'justify-between'
+        )}
+      >
         {!isCollapsed && (
           <h2 className='heading-1 text-primaryColor'>JIIBS.</h2>
         )}
-        <GoSidebarCollapse
-          className='size-6 text-[#999B9F] rotate-180 cursor-pointer'
-          onClick={handleCollapse}
-        />
+        {isCollapsed ? (
+          <GoSidebarExpand
+            className='size-6 text-[#999B9F] rotate-180 cursor-pointer'
+            onClick={handleCollapse}
+          />
+        ) : (
+          <GoSidebarCollapse
+            className='size-6 text-[#999B9F] rotate-180 cursor-pointer'
+            onClick={handleCollapse}
+          />
+        )}
       </div>
       <nav className='flex flex-col gap-3 mb-40'>
         {Buttons.map((button, index) => (
