@@ -92,7 +92,7 @@
 
 @layer components {
   .heading-1 {
-    @apply text-4xl font-bold;
+    @apply text-4xl font-semibold;
   }
   .heading-2 {
     @apply text-3xl font-semibold;
@@ -119,5 +119,10 @@
   }
   .paragraph-2 {
     @apply text-sm font-normal;
+  }
+
+
+  .content-with-header {
+    height: calc(100% - 76px);
   }
 }
