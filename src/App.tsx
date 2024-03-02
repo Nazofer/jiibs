@@ -2,6 +2,7 @@ import Sidebar from './components/sidebar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Building from './pages/building';
 import Units from './pages/units';
+import BookATour from './pages/bookATour';
 
 interface Page {
   page: string;
@@ -45,6 +46,7 @@ function App() {
             }
           />
         ))}
+        <Route path='/book' element={<BookATour />} />
       </Routes>
     </Router>
   );
