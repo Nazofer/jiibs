@@ -1,15 +1,23 @@
 import BookingContext from '@/context/booking';
 import { format } from 'date-fns';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   BsCalendar2Fill,
   BsCheckCircleFill,
   BsClockFill,
   BsFillPinAngleFill,
 } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 const Success: React.FC = () => {
+  const navigate = useNavigate();
   const { bookingDate } = useContext(BookingContext);
+
+  useEffect(() => {
+    if (!bookingDate) {
+      navigate('/book/confirm');
+    }
+  }, [bookingDate, navigate]);
 
   return (
     <section className='max-w-[40rem] w-full m-auto px-10 '>
