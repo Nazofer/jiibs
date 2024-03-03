@@ -53,7 +53,7 @@ const SelectTime: React.FC = () => {
       <div className='relative text-center mb-12'>
         <Link
           to={'/book'}
-          className='rounded-full size-8 border-[1.8px] border-darkGray grid place-items-center hover:bg-accent/10 absolute top-0 left-0'
+          className='rounded-full size-8 border-[1.8px] border-darkGray grid place-items-center hover:bg-accent absolute top-0 left-0'
         >
           <HiChevronLeft className='h-5 w-5 text-darkGray' />
         </Link>

@@ -69,7 +69,7 @@ const Confirm: React.FC = () => {
       <div className='relative pl-[3.5rem] mb-12'>
         <Link
           to={'/book/time'}
-          className='rounded-full size-8 border-[1.8px] border-darkGray grid place-items-center hover:bg-accent/10 absolute top-0 left-0'
+          className='rounded-full size-8 border-[1.8px] border-darkGray grid place-items-center hover:bg-accent absolute top-0 left-0'
         >
           <HiChevronLeft className='h-5 w-5 text-darkGray' />
         </Link>
@@ -104,7 +104,7 @@ const Confirm: React.FC = () => {
               <FormItem>
                 <FormLabel className='flex justify-between items-center'>
                   {'Name *'}
-                  <FormMessage />
+                  <FormMessage className='h-[14px]' />
                 </FormLabel>
                 <FormControl>
                   <Input
@@ -123,7 +123,7 @@ const Confirm: React.FC = () => {
               <FormItem>
                 <FormLabel className='flex justify-between items-center'>
                   {'Email *'}
-                  <FormMessage />
+                  <FormMessage className='h-[14px]' />
                 </FormLabel>
                 <FormControl>
                   <Input

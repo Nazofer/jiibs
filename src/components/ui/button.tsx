@@ -11,7 +11,7 @@ const buttonVariants = cva(
       variant: {
         default: 'rounded-md text-black bg-[#E3E3E3] hover:bg-[#E3E3E3]/90',
         booking:
-          'rounded-md text-4 font-bold text-[#317AE0] bg-[#E7F3FB] hover:bg-[#E7F3FB]/90 py-3 w-full ',
+          'rounded-md text-4 font-bold text-[#317AE0] bg-[#E7F3FB] hover:bg-[#e7fbf9] py-3 w-full ',
         outline:
           'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
         secondary: 'bg-primaryColor text-white hover:bg-primaryColor/80',

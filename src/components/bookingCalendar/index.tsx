@@ -23,7 +23,7 @@ function BookingCalendar({
         caption_label: 'heading-4 font-semibold',
         nav: 'space-x-1 flex items-center',
         nav_button: cn(
-          'rounded-full size-8 border-[1.8px] border-darkGray grid place-items-center hover:bg-accent/10'
+          'rounded-full size-8 border-[1.8px] border-darkGray grid place-items-center hover:bg-accent'
         ),
         nav_button_previous: 'absolute right-11',
         nav_button_next: 'absolute right-0',
