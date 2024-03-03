@@ -6,6 +6,8 @@ import SelectDate from './pages/bookATour/selectDate';
 import Header from './components/header';
 import Footer from './components/footer';
 import SelectTime from './pages/bookATour/selectTime';
+import Confirm from './pages/bookATour/confirm';
+import Success from './pages/bookATour/success';
 
 interface Page {
   page: string;
@@ -39,6 +41,14 @@ const bookATourPages: Page[] = [
   {
     page: '/book/time',
     children: <SelectTime />,
+  },
+  {
+    page: '/book/confirm',
+    children: <Confirm />,
+  },
+  {
+    page: '/book/success',
+    children: <Success />,
   },
   {
     page: '/book/*',

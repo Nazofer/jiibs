@@ -1,5 +1,5 @@
 import BookingSteps from '@/components/bookingSteps';
-import BookedTimeContext from '@/context/bookedTime';
+import BookingContext from '@/context/booking';
 import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -12,24 +12,36 @@ interface TimeSlot {
 }
 
 const timeSlots: TimeSlot[] = [
-  { time: '10:00 AM', available: true },
-  { time: '10:30 AM', available: true },
-  { time: '11:00 AM', available: true },
-  { time: '11:30 AM', available: true },
-  { time: '12:00 PM', available: true },
+  { time: '10:00', available: true },
+  { time: '10:30', available: true },
+  { time: '11:00', available: true },
+  { time: '11:30', available: true },
+  { time: '12:00', available: true },
 ];
 
 const SelectTime: React.FC = () => {
   const navigate = useNavigate();
   const url = new URL(window.location.href).pathname;
 
-  const { bookedDate } = useContext(BookedTimeContext);
+  const { bookingDate, setBookingDate } = useContext(BookingContext);
+  console.log(bookingDate);
+
+  const handleSetBookedDate = (time: string) => {
+    const newTime = bookingDate || new Date();
+    const [hours, minutes] = time.split(':');
+    newTime.setHours(parseInt(hours, 10));
+    newTime.setMinutes(parseInt(minutes, 10));
+    console.log(newTime);
+    setBookingDate(newTime);
+
+    navigate('/book/confirm');
+  };
 
   useEffect(() => {
-    if (!bookedDate) {
+    if (!bookingDate) {
       navigate('/book');
     }
-  }, [bookedDate, navigate]);
+  }, [bookingDate, navigate]);
 
   return (
     <section className='max-w-[40rem] w-full m-auto px-10 '>
@@ -39,18 +51,18 @@ const SelectTime: React.FC = () => {
         <p className='subheading-3 text-black'>Pick a time to meet</p>
       </div>
       <div className='relative text-center mb-12'>
-        {bookedDate && (
-          <>
-            <h2 className='heading-2 mb-2'>{format(bookedDate, 'eeee')}</h2>
-            <p className='subheading-3'>{format(bookedDate, 'MMM d, yyyy')}</p>
-          </>
-        )}
         <Link
           to={'/book'}
           className='rounded-full size-8 border-[1.8px] border-darkGray grid place-items-center hover:bg-accent/10 absolute top-0 left-0'
         >
           <HiChevronLeft className='h-5 w-5 text-darkGray' />
         </Link>
+        {bookingDate && (
+          <>
+            <h2 className='heading-2 mb-2'>{format(bookingDate, 'eeee')}</h2>
+            <p className='subheading-3'>{format(bookingDate, 'MMM d, yyyy')}</p>
+          </>
+        )}
       </div>
       <div className='text-center mb-6'>
         <h2 className='heading-2 mb-2'>SELECT A TIME</h2>
@@ -63,7 +75,7 @@ const SelectTime: React.FC = () => {
             variant={slot.available ? 'booking' : 'outline'}
             className='w-full mb-4'
             disabled={!slot.available}
-            onClick={() => navigate('/book/confirm')}
+            onClick={() => handleSetBookedDate(slot.time)}
           >
             {slot.time}
           </Button>

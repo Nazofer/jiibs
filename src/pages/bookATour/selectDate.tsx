@@ -3,17 +3,17 @@ import BookingSteps from '@/components/bookingSteps';
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SelectSingleEventHandler } from 'react-day-picker';
-import BookedTimeContext from '@/context/bookedTime';
+import BookingContext from '@/context/booking';
 
 const SelectDate: React.FC = () => {
   const navigate = useNavigate();
   const url = new URL(window.location.href).pathname;
 
-  const { bookedDate, setBookedDate } = useContext(BookedTimeContext);
+  const { bookingDate, setBookingDate } = useContext(BookingContext);
 
   const handleDateSelect: SelectSingleEventHandler = (date) => {
     if (date) {
-      setBookedDate(date);
+      setBookingDate(date);
     }
     navigate('/book/time');
   };
@@ -29,7 +29,7 @@ const SelectDate: React.FC = () => {
         <BookingCalendar
           className='w-full'
           mode='single'
-          selected={bookedDate}
+          selected={bookingDate}
           onSelect={handleDateSelect}
           fromDate={new Date()}
           footer={
