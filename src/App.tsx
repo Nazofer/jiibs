@@ -8,6 +8,7 @@ import Footer from './components/footer';
 import SelectTime from './pages/bookATour/selectTime';
 import Confirm from './pages/bookATour/confirm';
 import Success from './pages/bookATour/success';
+import Account from './pages/account';
 
 interface Page {
   page: string;
@@ -56,6 +57,17 @@ const bookATourPages: Page[] = [
   },
 ];
 
+const accountPages: Page[] = [
+  {
+    page: '/account',
+    children: <Account />,
+  },
+  {
+    page: '/account/*',
+    children: <div className='heading-2 text-center'>404</div>,
+  },
+];
+
 function App() {
   return (
     <Router>
@@ -82,9 +94,22 @@ function App() {
             path={page.page}
             element={
               <div className='h-full overflow-y-auto'>
-                <Header></Header>
+                <Header />
                 <main className='content-with-header'>{page.children}</main>
-                <Footer></Footer>
+                <Footer />
+              </div>
+            }
+          />
+        ))}
+        {/* Account Pages */}
+        {accountPages.map((page) => (
+          <Route
+            key={page.page}
+            path={page.page}
+            element={
+              <div className='h-full overflow-y-auto'>
+                <Header />
+                <main className='content-with-header'>{page.children}</main>
               </div>
             }
           />

@@ -4,6 +4,7 @@ import { HiOutlineMail } from 'react-icons/hi';
 import { HiOutlineHeart } from 'react-icons/hi';
 import { HiOutlineUserCircle } from 'react-icons/hi';
 import { HiSearch } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   return (
@@ -18,9 +19,15 @@ const Header: React.FC = () => {
           <HiSearch className='size-6 cursor-pointer text-darkGray absolute left-6 -z-10' />
         </div>
         <div className='flex items-center gap-4'>
-          <HiOutlineMail className='size-6 cursor-pointer' />
-          <HiOutlineHeart className='size-6 cursor-pointer' />
-          <HiOutlineUserCircle className='size-6 cursor-pointer' />
+          <Link to='#'>
+            <HiOutlineMail className='size-6 cursor-pointer' />
+          </Link>
+          <Link to='#'>
+            <HiOutlineHeart className='size-6 cursor-pointer' />
+          </Link>
+          <Link to='/account'>
+            <HiOutlineUserCircle className='size-6 cursor-pointer' />
+          </Link>
         </div>
       </div>
     </header>
