@@ -5,7 +5,7 @@ const cards: AccountCardProps[] = [
   {
     title: 'Personal info',
     subtitle: 'Edit your personal profiles',
-    path: '/account/profile',
+    path: '/account/info',
   },
   {
     title: 'Tours & Open Houses',

@@ -24,14 +24,12 @@ const SelectTime: React.FC = () => {
   const url = new URL(window.location.href).pathname;
 
   const { bookingDate, setBookingDate } = useContext(BookingContext);
-  console.log(bookingDate);
 
   const handleSetBookedDate = (time: string) => {
     const newTime = bookingDate || new Date();
     const [hours, minutes] = time.split(':');
     newTime.setHours(parseInt(hours, 10));
     newTime.setMinutes(parseInt(minutes, 10));
-    console.log(newTime);
     setBookingDate(newTime);
 
     navigate('/book/confirm');

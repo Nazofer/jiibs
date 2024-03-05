@@ -9,6 +9,7 @@ import SelectTime from './pages/bookATour/selectTime';
 import Confirm from './pages/bookATour/confirm';
 import Success from './pages/bookATour/success';
 import Account from './pages/account';
+import AccountInfo from './pages/account/accountInfo';
 
 interface Page {
   page: string;
@@ -61,6 +62,10 @@ const accountPages: Page[] = [
   {
     page: '/account',
     children: <Account />,
+  },
+  {
+    page: '/account/info',
+    children: <AccountInfo />,
   },
   {
     page: '/account/*',

@@ -52,7 +52,6 @@ const Confirm: React.FC = () => {
   });
 
   const onSubmit = (data: BookingForm) => {
-    // console.log(data);
     setBookingDetails(data);
     navigate('/book/success');
   };
