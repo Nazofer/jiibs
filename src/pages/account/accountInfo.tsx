@@ -16,25 +16,39 @@ import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import UserContext from '@/context/auth';
 
-const formSchema = z.object({
-  firstName: z
-    .string()
-    .min(2, { message: 'Name must have a minimum of 2 letters' })
-    .optional(),
-  lastName: z
-    .string()
-    .min(2, { message: 'Name must have a minimum of 2 letters' })
-    .optional(),
-  email: z.string().email({ message: 'Invalid email format' }).optional(),
-  phone: z
-    .string()
-    .regex(/^\d{10}$/, { message: 'Invalid phone number' })
-    .optional(),
-  password: z
-    .string()
-    .min(4, { message: 'Password must have a minimum of 4 letters' })
-    .optional(),
-});
+const passwordTest = z
+  .string()
+  .min(4, { message: 'Password must have a minimum of 4 letters' })
+  .optional();
+
+const formSchema = z
+  .object({
+    firstName: z
+      .string()
+      .min(2, { message: 'Name must have a minimum of 2 letters' })
+      .optional(),
+    lastName: z
+      .string()
+      .min(2, { message: 'Name must have a minimum of 2 letters' })
+      .optional(),
+    email: z.string().email({ message: 'Invalid email format' }).optional(),
+    phone: z
+      .string()
+      .regex(/^\d{10}$/, { message: 'Invalid phone number' })
+      .optional(),
+    password: passwordTest,
+    newPassword: passwordTest,
+    confirmPassword: passwordTest,
+  })
+  .refine(
+    (data) => {
+      if (data.newPassword || data.confirmPassword) {
+        return data.newPassword === data.confirmPassword;
+      }
+      return true;
+    },
+    { message: 'Passwords do not match', path: ['confirmPassword'] }
+  );
 
 type AccountForm = z.infer<typeof formSchema>;
 
@@ -48,7 +62,12 @@ const AccountInfo: React.FC = () => {
 
   const form = useForm<AccountForm>({
     resolver: zodResolver(formSchema),
-    defaultValues: user,
+    defaultValues: {
+      ...user,
+      password: '',
+      newPassword: '',
+      confirmPassword: '',
+    },
   });
 
   const onLegalNameSubmit = (values: z.infer<typeof formSchema>) => {
@@ -67,7 +86,18 @@ const AccountInfo: React.FC = () => {
   };
 
   const onPasswordSubmit = (values: z.infer<typeof formSchema>) => {
-    partialSetUser({ password: values.password });
+    if (values.password !== user.password) {
+      form.setError('password', {
+        type: 'manual',
+        message: 'Incorrect password',
+      });
+      return;
+    }
+
+    partialSetUser({ password: values.newPassword });
+    form.resetField('password');
+    form.resetField('newPassword');
+    form.resetField('confirmPassword');
     setIsPasswordEditing(!isPasswordEditing);
   };
 
@@ -168,25 +198,65 @@ const AccountInfo: React.FC = () => {
   const PasswordForm = (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onPasswordSubmit)}>
-        <FormField
-          name='password'
-          control={form.control}
-          render={({ field }) => (
-            <FormItem className='w-[50%] mb-5'>
-              <FormLabel>
-                Password
-                <FormMessage />
-              </FormLabel>
-              <FormControl>
-                <Input
-                  placeholder='Enter password:'
-                  {...field}
-                  type='password'
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
+        <div className='flex flex-col gap-5 mb-5'>
+          <FormField
+            name='password'
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className='w-[50%]'>
+                <FormLabel>
+                  Password
+                  <FormMessage />
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder='Enter password:'
+                    {...field}
+                    type='password'
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            name='newPassword'
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className='w-[50%]'>
+                <FormLabel>
+                  New password
+                  <FormMessage />
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder='Enter new password:'
+                    {...field}
+                    type='password'
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            name='confirmPassword'
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className='w-[50%]'>
+                <FormLabel>
+                  Confirm password
+                  <FormMessage />
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder='Enter new password again:'
+                    {...field}
+                    type='password'
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </div>
         <Button variant='secondary' type='submit'>
           Save
         </Button>
@@ -239,7 +309,7 @@ const AccountInfo: React.FC = () => {
       />
       <PersonalInfoItem
         label='Password'
-        value={form.getValues('password')!}
+        value={user.password}
         isValueHidden
         form={PasswordForm}
         isEditing={isPasswordEditing}
