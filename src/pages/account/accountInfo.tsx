@@ -1,24 +1,46 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Breadcrumbs from '@/components/breadcrumbs';
 import PersonalInfoItem from '@/components/personalInfoItem';
-import { Form, FormControl, FormItem, FormLabel } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '@/components/ui/button';
+import UserContext from '@/context/auth';
 
 const formSchema = z.object({
-  firstName: z.string().optional(),
-  lastName: z.string().optional(),
-  email: z.string().email().optional(),
-  phone: z.string().min(10).optional(),
-  password: z.string().min(4).optional(),
+  firstName: z
+    .string()
+    .min(2, { message: 'Name must have a minimum of 2 letters' })
+    .optional(),
+  lastName: z
+    .string()
+    .min(2, { message: 'Name must have a minimum of 2 letters' })
+    .optional(),
+  email: z.string().email({ message: 'Invalid email format' }).optional(),
+  phone: z
+    .string()
+    .regex(/^\d{10}$/, { message: 'Invalid phone number' })
+    .optional(),
+  password: z
+    .string()
+    .min(4, { message: 'Password must have a minimum of 4 letters' })
+    .optional(),
 });
 
 type AccountForm = z.infer<typeof formSchema>;
 
 const AccountInfo: React.FC = () => {
+  const { user, partialSetUser } = useContext(UserContext);
+
   const [isLegalNameEditing, setIsLegalNameEditing] = useState(false);
   const [isEmailEditing, setIsEmailEditing] = useState(false);
   const [isPhoneEditing, setIsPhoneEditing] = useState(false);
@@ -26,57 +48,65 @@ const AccountInfo: React.FC = () => {
 
   const form = useForm<AccountForm>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'johndoe@test.com',
-      phone: '1234567890',
-      password: 'password',
-    },
+    defaultValues: user,
   });
 
   const onLegalNameSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    partialSetUser({ firstName: values.firstName, lastName: values.lastName });
     setIsLegalNameEditing(!isLegalNameEditing);
   };
 
   const onEmailSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    partialSetUser({ email: values.email });
     setIsEmailEditing(!isEmailEditing);
   };
 
   const onPhoneSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    partialSetUser({ phone: values.phone });
     setIsPhoneEditing(!isPhoneEditing);
   };
 
   const onPasswordSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    partialSetUser({ password: values.password });
     setIsPasswordEditing(!isPasswordEditing);
   };
+
+  console.log(form.formState.errors);
 
   const LegalNameForm = (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onLegalNameSubmit)}>
         <div className='flex gap-[3.25rem] mb-5'>
-          <FormItem className='w-full'>
-            <FormLabel>First Name</FormLabel>
-            <FormControl>
-              <Input
-                placeholder='Enter first name:'
-                {...form.register('firstName')}
-              />
-            </FormControl>
-          </FormItem>
-          <FormItem className='w-full'>
-            <FormLabel>Last Name</FormLabel>
-            <FormControl>
-              <Input
-                placeholder='Enter last name:'
-                {...form.register('lastName')}
-              />
-            </FormControl>
-          </FormItem>
+          <FormField
+            name='firstName'
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormLabel>
+                  First Name
+                  <FormMessage />
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder='Enter first name:' {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            name='lastName'
+            control={form.control}
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormLabel>
+                  Last Name
+                  <FormMessage />
+                </FormLabel>
+                <FormControl>
+                  <Input placeholder='Enter last name:' {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
         </div>
         <Button variant='secondary' type='submit'>
           Save
@@ -88,12 +118,21 @@ const AccountInfo: React.FC = () => {
   const EmailForm = (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onEmailSubmit)}>
-        <FormItem className='w-[50%] mb-5'>
-          <FormLabel>Email</FormLabel>
-          <FormControl>
-            <Input placeholder='Enter email:' {...form.register('email')} />
-          </FormControl>
-        </FormItem>
+        <FormField
+          name='email'
+          control={form.control}
+          render={({ field }) => (
+            <FormItem className='w-[50%] mb-5'>
+              <FormLabel>
+                Email
+                <FormMessage />
+              </FormLabel>
+              <FormControl>
+                <Input placeholder='Enter email:' {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
         <Button variant='secondary' type='submit'>
           Save
         </Button>
@@ -104,12 +143,21 @@ const AccountInfo: React.FC = () => {
   const PhoneForm = (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onPhoneSubmit)}>
-        <FormItem className='w-[50%] mb-5'>
-          <FormLabel>Phone</FormLabel>
-          <FormControl>
-            <Input placeholder='Enter phone:' {...form.register('phone')} />
-          </FormControl>
-        </FormItem>
+        <FormField
+          name='phone'
+          control={form.control}
+          render={({ field }) => (
+            <FormItem className='w-[50%] mb-5'>
+              <FormLabel>
+                Phone
+                <FormMessage />
+              </FormLabel>
+              <FormControl>
+                <Input placeholder='Enter phone:' {...field} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
         <Button variant='secondary' type='submit'>
           Save
         </Button>
@@ -120,16 +168,25 @@ const AccountInfo: React.FC = () => {
   const PasswordForm = (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onPasswordSubmit)}>
-        <FormItem className='w-[50%] mb-5'>
-          <FormLabel>Password</FormLabel>
-          <FormControl>
-            <Input
-              placeholder='Enter password:'
-              {...form.register('password')}
-              type='password'
-            />
-          </FormControl>
-        </FormItem>
+        <FormField
+          name='password'
+          control={form.control}
+          render={({ field }) => (
+            <FormItem className='w-[50%] mb-5'>
+              <FormLabel>
+                Password
+                <FormMessage />
+              </FormLabel>
+              <FormControl>
+                <Input
+                  placeholder='Enter password:'
+                  {...field}
+                  type='password'
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
         <Button variant='secondary' type='submit'>
           Save
         </Button>
@@ -153,6 +210,10 @@ const AccountInfo: React.FC = () => {
         form={LegalNameForm}
         isEditing={isLegalNameEditing}
         setIsEditing={(isEditing) => {
+          if (!isEditing) {
+            form.resetField('firstName');
+            form.resetField('lastName');
+          }
           setIsLegalNameEditing(isEditing);
         }}
       />
@@ -162,6 +223,7 @@ const AccountInfo: React.FC = () => {
         form={EmailForm}
         isEditing={isEmailEditing}
         setIsEditing={(isEditing) => {
+          !isEditing && form.resetField('email');
           setIsEmailEditing(isEditing);
         }}
       />
@@ -171,6 +233,7 @@ const AccountInfo: React.FC = () => {
         form={PhoneForm}
         isEditing={isPhoneEditing}
         setIsEditing={(isEditing) => {
+          !isEditing && form.resetField('phone');
           setIsPhoneEditing(isEditing);
         }}
       />
@@ -181,6 +244,7 @@ const AccountInfo: React.FC = () => {
         form={PasswordForm}
         isEditing={isPasswordEditing}
         setIsEditing={(isEditing) => {
+          !isEditing && form.resetField('password');
           setIsPasswordEditing(isEditing);
         }}
       />
