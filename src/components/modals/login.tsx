@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
+import SignupModal from './signup';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email format' }),
@@ -23,6 +24,11 @@ type LoginForm = z.infer<typeof formSchema>;
 
 const LoginModal = NiceModal.create(() => {
   const modal = useModal();
+
+  const showSignupModal = () => {
+    modal.hide();
+    NiceModal.show(SignupModal);
+  };
 
   const form = useForm<LoginForm>({
     resolver: zodResolver(formSchema),
@@ -51,7 +57,7 @@ const LoginModal = NiceModal.create(() => {
         <Separator />
         <div className='py-[30px] px-10'>
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className='mb-[30px]'>
               <div className='flex flex-col gap-4 mb-6'>
                 <FormField
                   name='email'
@@ -86,6 +92,12 @@ const LoginModal = NiceModal.create(() => {
                 Authorize
               </Button>
             </form>
+            <div className='flex flex-col items-center'>
+              <p className='paragraph-2 mb-3'>Don't have account?</p>
+              <Button variant='secondaryOutline' onClick={showSignupModal}>
+                Sign Up
+              </Button>
+            </div>
           </Form>
         </div>
       </DialogContent>
