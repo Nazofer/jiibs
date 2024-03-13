@@ -48,6 +48,7 @@ const LoginModal = NiceModal.create(() => {
       open={modal.visible}
       onOpenChange={() => {
         modal.hide();
+        form.reset();
       }}
     >
       <DialogContent className='p-0 gap-0 max-w-[400px] w-full'>
