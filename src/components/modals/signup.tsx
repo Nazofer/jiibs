@@ -57,10 +57,9 @@ const SignupModal = NiceModal.create(() => {
   });
 
   const onSubmit = (data: SignupForm) => {
-    console.log(data);
     form.reset();
+    modal.hide();
   };
-  console.log(form.formState.errors);
 
   return (
     <Dialog
@@ -73,7 +72,7 @@ const SignupModal = NiceModal.create(() => {
         <h1 className='heading-3 text-center py-3 font-semibold'>
           Sign up to JIIBS.
         </h1>
-        <Separator className='' />
+        <Separator />
         <div className='py-[30px] px-10'>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>

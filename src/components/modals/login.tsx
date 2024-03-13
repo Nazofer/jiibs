@@ -33,8 +33,8 @@ const LoginModal = NiceModal.create(() => {
   });
 
   const onSubmit = (data: LoginForm) => {
-    console.log(data);
     form.reset();
+    modal.hide();
   };
 
   return (
@@ -48,7 +48,7 @@ const LoginModal = NiceModal.create(() => {
         <h1 className='heading-3 text-center py-3 font-semibold'>
           Log in to JIIBS.
         </h1>
-        <Separator className='' />
+        <Separator />
         <div className='py-[30px] px-10'>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>

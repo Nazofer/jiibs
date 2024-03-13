@@ -10,13 +10,19 @@ import SignupModal from '../modals/signup';
 import LoginModal from '../modals/login';
 import NiceModal from '@ebay/nice-modal-react';
 import { IoPersonSharp, IoPersonCircleSharp } from 'react-icons/io5';
+import VerifyEmailModal from '../modals/verifyEmail';
 
 const Header: React.FC = () => {
   const showLoginModal = () => {
     NiceModal.show(LoginModal);
   };
+
   const showSignupModal = () => {
     NiceModal.show(SignupModal);
+  };
+
+  const showVerifyEmailModal = () => {
+    NiceModal.show(VerifyEmailModal);
   };
 
   return (
@@ -32,6 +38,7 @@ const Header: React.FC = () => {
         </div>
         <div className='flex items-center gap-4'>
           {/* TODO: add condition to check if user is logged in */}
+
           {/* <Link to='#'>
             <HiOutlineMail className='size-6 cursor-pointer' />
           </Link>
@@ -48,6 +55,11 @@ const Header: React.FC = () => {
           <Button variant='auth' onClick={showSignupModal}>
             <IoPersonCircleSharp className='size-5' />
             Sign Up
+          </Button>
+          {/* TEMPORARY */}
+
+          <Button variant='auth' onClick={showVerifyEmailModal}>
+            Verify Email
           </Button>
         </div>
       </div>

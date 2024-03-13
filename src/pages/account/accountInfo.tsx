@@ -101,8 +101,6 @@ const AccountInfo: React.FC = () => {
     setIsPasswordEditing(!isPasswordEditing);
   };
 
-  console.log(form.formState.errors);
-
   const LegalNameForm = (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onLegalNameSubmit)}>
