@@ -1,12 +1,24 @@
 import React from 'react';
 import { Input } from '../ui/input';
-import { HiOutlineMail } from 'react-icons/hi';
-import { HiOutlineHeart } from 'react-icons/hi';
-import { HiOutlineUserCircle } from 'react-icons/hi';
+// import { HiOutlineMail } from 'react-icons/hi';
+// import { HiOutlineHeart } from 'react-icons/hi';
+// import { HiOutlineUserCircle } from 'react-icons/hi';
 import { HiSearch } from 'react-icons/hi';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { Button } from '../ui/button';
+import SignupModal from '../modals/signup';
+import LoginModal from '../modals/login';
+import NiceModal from '@ebay/nice-modal-react';
+import { IoPersonSharp, IoPersonCircleSharp } from 'react-icons/io5';
 
 const Header: React.FC = () => {
+  const showLoginModal = () => {
+    NiceModal.show(LoginModal);
+  };
+  const showSignupModal = () => {
+    NiceModal.show(SignupModal);
+  };
+
   return (
     <header className='py-[1.125rem]'>
       <div className='max-w-[86.5625rem] m-auto flex items-center justify-between'>
@@ -19,7 +31,8 @@ const Header: React.FC = () => {
           <HiSearch className='size-6 cursor-pointer text-darkGray absolute left-6 -z-10' />
         </div>
         <div className='flex items-center gap-4'>
-          <Link to='#'>
+          {/* TODO: add condition to check if user is logged in */}
+          {/* <Link to='#'>
             <HiOutlineMail className='size-6 cursor-pointer' />
           </Link>
           <Link to='#'>
@@ -27,7 +40,15 @@ const Header: React.FC = () => {
           </Link>
           <Link to='/account'>
             <HiOutlineUserCircle className='size-6 cursor-pointer' />
-          </Link>
+          </Link> */}
+          <Button variant='auth' onClick={showLoginModal}>
+            <IoPersonSharp className='size-4' />
+            Login
+          </Button>
+          <Button variant='auth' onClick={showSignupModal}>
+            <IoPersonCircleSharp className='size-5' />
+            Sign Up
+          </Button>
         </div>
       </div>
     </header>

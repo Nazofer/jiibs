@@ -120,6 +120,9 @@
   .paragraph-2 {
     @apply text-sm font-normal;
   }
+  .paragraph-3 {
+    @apply text-xs font-normal;
+  }
 
 
   .content-with-header {

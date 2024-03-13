@@ -18,6 +18,7 @@ const buttonVariants = cva(
         dark: 'bg-black text-white hover:bg-black/90',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
+        auth: 'flex gap-1 rounded-[80px] bg-lightGray hover:bg-[#eaeaea] text-sm font-semibold',
       },
       size: {
         default: 'h-10 px-4 py-2',

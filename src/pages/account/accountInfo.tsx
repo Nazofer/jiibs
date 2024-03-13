@@ -70,22 +70,22 @@ const AccountInfo: React.FC = () => {
     },
   });
 
-  const onLegalNameSubmit = (values: z.infer<typeof formSchema>) => {
+  const onLegalNameSubmit = (values: AccountForm) => {
     partialSetUser({ firstName: values.firstName, lastName: values.lastName });
     setIsLegalNameEditing(!isLegalNameEditing);
   };
 
-  const onEmailSubmit = (values: z.infer<typeof formSchema>) => {
+  const onEmailSubmit = (values: AccountForm) => {
     partialSetUser({ email: values.email });
     setIsEmailEditing(!isEmailEditing);
   };
 
-  const onPhoneSubmit = (values: z.infer<typeof formSchema>) => {
+  const onPhoneSubmit = (values: AccountForm) => {
     partialSetUser({ phone: values.phone });
     setIsPhoneEditing(!isPhoneEditing);
   };
 
-  const onPasswordSubmit = (values: z.infer<typeof formSchema>) => {
+  const onPasswordSubmit = (values: AccountForm) => {
     if (values.password !== user.password) {
       form.setError('password', {
         type: 'manual',
